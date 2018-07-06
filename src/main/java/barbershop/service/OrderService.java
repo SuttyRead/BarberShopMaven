@@ -5,6 +5,7 @@ import barbershop.domain.Customer;
 import barbershop.domain.MasterHand;
 import barbershop.domain.Order;
 import barbershop.domain.Services;
+import barbershop.dto.OrderDTO;
 import barbershop.repository.impl.OrderDAOH2Impl;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class OrderService {
         CustomerService customerService = new CustomerService();
         ;
         List<Order> orders = orderDAOH2.getAllOrders();
+//        List<OrderDTO> orderDTOS = orders.stream();
 
         Customer customer = new Customer();
         MasterHand masterHand = new MasterHand();
