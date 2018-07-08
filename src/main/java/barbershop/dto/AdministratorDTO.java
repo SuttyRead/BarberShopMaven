@@ -1,45 +1,30 @@
 package barbershop.dto;
 
 
+import barbershop.domain.Administrator;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Builder
+@Setter
+@Getter
 public class AdministratorDTO {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String middleName;
     private String phoneNumber;
 
-    public String getFirstName() {
-        return firstName;
+    public static AdministratorDTO toDTO(Administrator administrator) {
+        return AdministratorDTO.builder()
+                .id(administrator.getId())
+                .firstName(administrator.getFirstName())
+                .lastName(administrator.getLastName())
+                .middleName(administrator.getMiddleName())
+                .phoneNumber(administrator.getPhoneNumber())
+                .build();
     }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-
 
 }

@@ -1,8 +1,5 @@
 package barbershop.domain;
 
-
-
-
 public class MasterHand  extends Person{
 
     public static final String HIRING = "hiring";

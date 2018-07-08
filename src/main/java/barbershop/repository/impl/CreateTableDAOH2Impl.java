@@ -6,17 +6,12 @@ import java.sql.*;
 
 import static barbershop.repository.impl.ConnectionFactory.getInstance;
 
-
 public class CreateTableDAOH2Impl implements CreateTable {
-
 
     private Connection connection;
     private PreparedStatement pst = null;
     private Statement stmt = null;
     private ResultSet rs = null;
-
-
-
 
     private static final String CREATE_ORDERS_TABLE = "CREATE TABLE IF NOT EXISTS orders (\n" +
             "\tid int(11) PRIMARY KEY AUTO_INCREMENT,\n" +

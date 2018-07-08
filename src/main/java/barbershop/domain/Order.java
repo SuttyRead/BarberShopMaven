@@ -54,7 +54,7 @@ public class Order {
         this.masterHandId = masterHandId;
     }
 
-    public double getCost() {
+    public int getCost() {
         return cost;
     }
 
@@ -85,6 +85,63 @@ public class Order {
     public void setEndOfAdmission(String endOfAdmission) {
         this.endOfAdmission = endOfAdmission;
     }
+
+
+
+    public static OrderBuilder newBuilder(){
+        return new Order().new OrderBuilder();
+    }
+
+    public class OrderBuilder{
+
+        private int id;
+        private int customerId;
+        private int masterHandId;
+        private int cost;
+        private int servicesId;
+        private String beginningOfAdmission;
+        private String endOfAdmission;
+
+        public OrderBuilder setId(int id){
+            Order.this.id = id;
+            return this;
+        }
+
+        public OrderBuilder setCustomerId(int id){
+            Order.this.customerId = id;
+            return this;
+        }
+
+        public OrderBuilder setMasterHandId(int id){
+            Order.this.masterHandId = id;
+            return this;
+        }
+        public OrderBuilder setServicesId(int id){
+            Order.this.servicesId = id;
+            return this;
+        }
+
+        public OrderBuilder setCost(int cost){
+            Order.this.cost = cost;
+            return this;
+        }
+        public OrderBuilder setBeginningOfAdmission(String beginningOfAdmission){
+            Order.this.beginningOfAdmission = beginningOfAdmission;
+            return this;
+        }
+        public OrderBuilder setEndOfAdmission(String endOfAdmission){
+            Order.this.endOfAdmission = endOfAdmission;
+            return this;
+        }
+
+
+        public Order build(){
+            return Order.this;
+        }
+
+    }
+
+
 
     @Override
     public String toString() {

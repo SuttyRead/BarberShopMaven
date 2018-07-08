@@ -1,73 +1,85 @@
 package barbershop.dto;
 
+
+import barbershop.domain.Order;
+import lombok.Builder;
+import lombok.Data;
+
+
 public class OrderDTO {
 
     private int id;
     private int customerId;
     private int masterHandId;
-//    private CustomerDTO customerDTO;
-//    private MasterHandDTO masterHandDTO;
     private int cost;
-//    private ServicesDTO servicesDTO;
     private int serviceId;
 
-
-    public int getId() {
-        return id;
+    public static OrderDTO.OrderBuilder newBuilder(){
+        return new OrderDTO().new OrderBuilder();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public class OrderBuilder {
+
+        private int id;
+        private int customerId;
+        private int masterHandId;
+        private int cost;
+        private int servicesId;
+
+
+
+
+        public OrderDTO.OrderBuilder setId(int id) {
+            OrderDTO.this.id = id;
+            return this;
+        }
+
+        public OrderDTO.OrderBuilder setCustomerId(int id) {
+            OrderDTO.this.customerId = id;
+            return this;
+        }
+
+        public OrderDTO.OrderBuilder setMasterHandId(int id) {
+            OrderDTO.this.masterHandId = id;
+            return this;
+        }
+
+        public OrderDTO.OrderBuilder setServicesId(int id) {
+            OrderDTO.this.serviceId = id;
+            return this;
+        }
+
+        public OrderDTO.OrderBuilder setCost(int cost) {
+            OrderDTO.this.cost = cost;
+            return this;
+        }
+
+
+        public OrderDTO build() {
+            return OrderDTO.this;
+        }
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public static OrderDTO toDTO(Order order) {
+        return  OrderDTO.newBuilder()
+                .setId(order.getId())
+                .setCustomerId(order.getCustomerId())
+                .setMasterHandId(order.getMasterHandId())
+                .setCost(order.getCost())
+                .setServicesId(order.getServicesId())
+                .build();
     }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public int getMasterHandId() {
-        return masterHandId;
-    }
-
-    public void setMasterHandId(int masterHandId) {
-        this.masterHandId = masterHandId;
-    }
-
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
-    public int getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(int serviceId) {
-        this.serviceId = serviceId;
-    }
-
-//    private static OrderDTO toDTO(Order order) {
-//        return OrderDTO.builder()
-//                .email(user.getEmail())
-//                .id(user.getId())
-//                .username(user.getUsername())
-//                .build();
-//    }
 
     @Override
     public String toString() {
-        return "OrderDTO{" +
+        return "Order{" +
                 "id=" + id +
                 ", customerId=" + customerId +
                 ", masterHandId=" + masterHandId +
                 ", cost=" + cost +
-                ", serviceId=" + serviceId +
+                ", servicesId=" + serviceId +
+
                 '}';
     }
+
 }
