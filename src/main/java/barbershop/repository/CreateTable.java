@@ -18,6 +18,8 @@ public interface CreateTable {
 
     void createTableServices();
 
+    void createTableMasterHandCustomer();
+
     void createAlterTable();
 
 

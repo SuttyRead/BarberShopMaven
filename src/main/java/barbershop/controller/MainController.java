@@ -1008,6 +1008,7 @@ public class MainController {
         createTableDAOH2.createTableManicurist();
         createTableDAOH2.createTableServices();
         createTableDAOH2.createTableOrder();
+        createTableDAOH2.createTableMasterHandCustomer();
         createTableDAOH2.createAlterTable();
     }
 

@@ -86,12 +86,21 @@ public class CreateTableDAOH2Impl implements CreateTable {
             "\tservice varchar(255) NOT NULL,\n" +
             "\tcost int(11) NOT NULL\n" +
             ");";
+    private static final String CREATE_MASTER_HAND_CUSTOMER_TABLE = "CREATE TABLE IF NOT EXISTS master_hand_customer (\n" +
+            "\tid int(11) PRIMARY KEY AUTO_INCREMENT,\n" +
+            "\tmaster_hand_id int(11) NOT NULL,\n" +
+            "\tcustomer_id int(11) NOT NULL\n" +
+            ");";
 
     private static final String ALTER_TABLE_ORDERS_FK0 = "ALTER TABLE orders ADD FOREIGN KEY(customer_id) REFERENCES customers(id);";
 
     private static final String ALTER_TABLE_ORDERS_FK1 = "ALTER TABLE orders ADD FOREIGN KEY (master_hand_id) REFERENCES master_hands(id);";
 
     private static final String ALTER_TABLE_ORDERS_FK2 = "ALTER TABLE orders ADD FOREIGN KEY (service_id) REFERENCES services(id);";
+
+    private static final String ALTER_TABLE_MASTER_HAND = "ALTER TABLE orders ADD FOREIGN KEY (master_hand_id) REFERENCES master_hands(id);";
+
+    private static final String ALTER_TABLE_CUSTOMER = "ALTER TABLE orders ADD FOREIGN KEY (customer_id) REFERENCES customers(id);";
 
     private void createTableIfNotExists(String name) {
         try {
@@ -148,6 +157,11 @@ public class CreateTableDAOH2Impl implements CreateTable {
     }
 
     @Override
+    public void createTableMasterHandCustomer() {
+        createTableIfNotExists(CREATE_MASTER_HAND_CUSTOMER_TABLE);
+    }
+
+    @Override
     public void createAlterTable() {
         try {
             connection = getInstance().getConnection();
@@ -155,6 +169,8 @@ public class CreateTableDAOH2Impl implements CreateTable {
             stmt.executeUpdate(ALTER_TABLE_ORDERS_FK0);
             stmt.executeUpdate(ALTER_TABLE_ORDERS_FK1);
             stmt.executeUpdate(ALTER_TABLE_ORDERS_FK2);
+            stmt.executeUpdate(ALTER_TABLE_CUSTOMER);
+            stmt.executeUpdate(ALTER_TABLE_MASTER_HAND);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
