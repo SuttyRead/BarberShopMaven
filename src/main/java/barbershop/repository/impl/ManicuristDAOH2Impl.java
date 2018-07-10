@@ -30,8 +30,8 @@ public class ManicuristDAOH2Impl implements ManicuristDAO {
     }
 
 
-    private static final String INSERT_MANICURIST = String.format("INSERT INTO manicurists(%s, %s, %s, %s, %s, %s)" +
-            " VALUES (?, ?, ?, ?, ?, ?);", Manicurist.FIRST_NAME, Manicurist.LAST_NAME, Manicurist.MIDDLE_NAME, Manicurist.PHONE_NUMBER, Manicurist.HIRING, Manicurist.EXPERIENCE);
+    private static final String INSERT_MANICURIST = String.format("INSERT INTO manicurists(%s, %s, %s, %s, %s, %s, %s)" +
+            " VALUES (?, ?, ?, ?, ?, ?, ?);", Manicurist.FIRST_NAME, Manicurist.LAST_NAME, Manicurist.MIDDLE_NAME, Manicurist.PHONE_NUMBER, Manicurist.HIRING, Manicurist.EXPERIENCE, Manicurist.NUMBER_CERTIFICATE);
 
     private static final String GET_ALL_MANICURISTS = "SELECT * FROM manicurists";
 
@@ -41,8 +41,8 @@ public class ManicuristDAOH2Impl implements ManicuristDAO {
 
     private static final String GET_MANICURIST_BY_NAME = "SELECT * FROM manicurists WHERE first_name = ? and last_name = ? and middle_name = ?";
 
-    private static final String UPDATE_MANICURIST = String.format("UPDATE manicurists SET %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ? " +
-            "WHERE id = ?", Manicurist.FIRST_NAME, Manicurist.LAST_NAME, Manicurist.MIDDLE_NAME, Manicurist.PHONE_NUMBER, Manicurist.HIRING, Manicurist.EXPERIENCE);
+    private static final String UPDATE_MANICURIST = String.format("UPDATE manicurists SET %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s =? " +
+            "WHERE id = ?", Manicurist.FIRST_NAME, Manicurist.LAST_NAME, Manicurist.MIDDLE_NAME, Manicurist.PHONE_NUMBER, Manicurist.HIRING, Manicurist.EXPERIENCE, Manicurist.NUMBER_CERTIFICATE);
 
 
     @Override
@@ -55,9 +55,11 @@ public class ManicuristDAOH2Impl implements ManicuristDAO {
             pst.setString(1, manicurist.getFirstName());
             pst.setString(2, manicurist.getLastName());
             pst.setString(3, manicurist.getMiddleName());
-            pst.setString(4, manicurist.getPhoneNumber().toString());
-            pst.setString(5, manicurist.getHiring().toString());
+            pst.setString(4, manicurist.getPhoneNumber());
+            pst.setString(5, manicurist.getHiring());
             pst.setDouble(6, manicurist.getExperience());
+            pst.setInt(7, manicurist.getNumberCertificate());
+
 
             pst.execute();
 
@@ -89,6 +91,7 @@ public class ManicuristDAOH2Impl implements ManicuristDAO {
                 manicurist.setPhoneNumber(rs.getString(Manicurist.PHONE_NUMBER));
                 manicurist.setHiring(rs.getString(Manicurist.HIRING));
                 manicurist.setExperience(rs.getDouble(Manicurist.EXPERIENCE));
+                manicurist.setNumberCertificate(rs.getInt(Manicurist.NUMBER_CERTIFICATE));
                 manicurists.add(manicurist);
             }
         } catch (SQLException e) {
@@ -119,6 +122,7 @@ public class ManicuristDAOH2Impl implements ManicuristDAO {
                 manicurist.setPhoneNumber(rs.getString(Manicurist.PHONE_NUMBER));
                 manicurist.setHiring(rs.getString(Manicurist.HIRING));
                 manicurist.setExperience(rs.getDouble(Manicurist.EXPERIENCE));
+                manicurist.setNumberCertificate(rs.getInt(Manicurist.NUMBER_CERTIFICATE));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -148,6 +152,7 @@ public class ManicuristDAOH2Impl implements ManicuristDAO {
                 manicurist.setPhoneNumber(rs.getString(Manicurist.PHONE_NUMBER));
                 manicurist.setHiring(rs.getString(Manicurist.HIRING));
                 manicurist.setExperience(rs.getDouble(Manicurist.EXPERIENCE));
+                manicurist.setNumberCertificate(rs.getInt(Manicurist.NUMBER_CERTIFICATE));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -170,7 +175,8 @@ public class ManicuristDAOH2Impl implements ManicuristDAO {
             pst.setString(4, manicurist.getPhoneNumber());
             pst.setString(5, manicurist.getHiring());
             pst.setDouble(6, manicurist.getExperience());
-            pst.setInt(7, manicurist.getId());
+            pst.setInt(7, manicurist.getNumberCertificate());
+            pst.setInt(8, manicurist.getId());
 
             pst.execute();
 

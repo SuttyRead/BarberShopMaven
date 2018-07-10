@@ -41,7 +41,7 @@ public class ServicesDAOH2Impl implements ServicesDAO {
 
 
     @Override
-    public void addServices(Services services) {
+    public void addService(Services services) {
         try {
             connection = getInstance().getConnection();
             pst = connection.prepareStatement(INSERT_SERVICE);
@@ -114,7 +114,7 @@ public class ServicesDAOH2Impl implements ServicesDAO {
     }
 
     @Override
-    public void deleteServices(int id) {
+    public void deleteService(int id) {
         try {
             connection = getInstance().getConnection();
             pst = connection.prepareStatement(DELETE_SERVICE_BY_ID);
@@ -132,13 +132,13 @@ public class ServicesDAOH2Impl implements ServicesDAO {
     }
 
     @Override
-    public void updateServices(Services services) {
+    public void updateService(Services service) {
         try {
             connection = getInstance().getConnection();
             pst = connection.prepareStatement(UPDATE_SERVICE);
-            pst.setString(1, services.getServiceList().toString());
-            pst.setDouble(2, services.getCost());
-            pst.setInt(3, services.getId());
+            pst.setString(1, service.getServiceList().toString());
+            pst.setDouble(2, service.getCost());
+            pst.setInt(3, service.getId());
 
             pst.execute();
 

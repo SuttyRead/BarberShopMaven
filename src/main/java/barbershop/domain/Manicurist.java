@@ -15,6 +15,6 @@ public class Manicurist extends MasterHand{
     public String toString() {
         return "Manicurist(First name = " + getFirstName() + ", last name = " + getLastName() + "," +
                 " middle name = " + getMiddleName() + ", phone number = " + getPhoneNumber() +
-                ", hiring = " + getHiring() + ", experience = " + getExperience() + ")";
+                ", hiring = " + getHiring() + ", experience = " + getExperience() + ", number certificate = " + getNumberCertificate() + ")";
     }
 }

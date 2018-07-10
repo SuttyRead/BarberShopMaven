@@ -18,16 +18,16 @@ public class ServicesService {
         return servicesDAO.getAllServices();
     }
 
-    public void addServices(Services services) {
-        servicesDAO.addServices(services);
+    public void addService(Services service) {
+        servicesDAO.addService(service);
     }
 
-    public void deleteServices(int id) {
-        servicesDAO.deleteServices(id);
+    public void deleteService(int id) {
+        servicesDAO.deleteService(id);
     }
 
-    public void updateServices(Services services) {
-        servicesDAO.updateServices(services);
+    public void updateService(Services services) {
+        servicesDAO.updateService(services);
     }
 
     public Services findServicesById(int id) {

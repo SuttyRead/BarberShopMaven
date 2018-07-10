@@ -4,6 +4,7 @@ import barbershop.domain.*;
 import barbershop.repository.impl.CreateTableDAOH2Impl;
 import barbershop.service.*;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainController {
@@ -16,6 +17,8 @@ public class MainController {
     private MasterHandService masterHandService = new MasterHandService();
     private OrderService orderService = new OrderService();
     private ServicesService servicesService = new ServicesService();
+    private CertificateService certificateService = new CertificateService();
+    private ServiceService serviceService = new ServiceService();
 
     static {
         MainController.initDatabase();
@@ -39,7 +42,9 @@ public class MainController {
         System.out.println("5. Manicurist");
         System.out.println("6. MasterHand");
         System.out.println("7. Order");
-        System.out.println("8. Service");
+        System.out.println("8. Services");
+        System.out.println("9. Certificate");
+        System.out.println("10. Service");
 
         System.out.println("\n0. Exit");
 
@@ -89,6 +94,14 @@ public class MainController {
             }
             case 8: {
                 methodServices();
+                break;
+            }
+            case 9: {
+                methodCertificate();
+                break;
+            }
+            case 10: {
+                methodService();
                 break;
             }
             case 0: {
@@ -460,6 +473,8 @@ public class MainController {
         hairdresser.setHiring(sc.next());
         System.out.println("Enter experience");
         hairdresser.setExperience(sc.nextInt());
+        System.out.println("Enter number certificates");
+        hairdresser.setNumberCertificate(sc.nextInt());
         hairdresserService.addHairdresser(hairdresser);
     }
 
@@ -486,6 +501,8 @@ public class MainController {
             hairdresser.setHiring(sc.next());
             System.out.println("Enter experience: ");
             hairdresser.setExperience(sc.nextInt());
+            System.out.println("Enter number certificates");
+            hairdresser.setNumberCertificate(sc.nextInt());
             hairdresserService.updateHairdresser(hairdresser);
         } catch (Exception e) {
             e.printStackTrace();
@@ -573,6 +590,7 @@ public class MainController {
         manicurist.setMiddleName(sc.next());
         System.out.println("Enter phone number");
         manicurist.setPhoneNumber(sc.next());
+
         System.out.println(manicuristService.findManicurist(manicurist));
     }
 
@@ -591,6 +609,8 @@ public class MainController {
         manicurist.setHiring(sc.next());
         System.out.println("Enter experience");
         manicurist.setExperience(sc.nextInt());
+        System.out.println("Enter number certificates");
+        manicurist.setNumberCertificate(sc.nextInt());
         manicuristService.addManicurist(manicurist);
     }
 
@@ -617,6 +637,8 @@ public class MainController {
             manicurist.setHiring(sc.next());
             System.out.println("Enter experience: ");
             manicurist.setExperience(sc.nextInt());
+            System.out.println("Enter number certificates");
+            manicurist.setNumberCertificate(sc.nextInt());
             manicuristService.updateManicurist(manicurist);
         } catch (Exception e) {
             e.printStackTrace();
@@ -722,6 +744,8 @@ public class MainController {
         masterHand.setHiring(sc.next());
         System.out.println("Enter experience");
         masterHand.setExperience(sc.nextInt());
+        System.out.println("Enter number certificates");
+        masterHand.setNumberCertificate(sc.nextInt());
         masterHandService.addMasterHand(masterHand);
     }
 
@@ -748,6 +772,8 @@ public class MainController {
             masterHand.setHiring(sc.next());
             System.out.println("Enter experience: ");
             masterHand.setExperience(sc.nextInt());
+            System.out.println("Enter number certificates");
+            masterHand.setNumberCertificate(sc.nextInt());
             masterHandService.updateMasterHand(masterHand);
         } catch (Exception e) {
             e.printStackTrace();
@@ -890,7 +916,7 @@ public class MainController {
         services.setServiceList(sc.next());
         System.out.println("Enter cost");
         services.setCost(sc.nextInt());
-        servicesService.addServices(services);
+        servicesService.addService(services);
     }
 
     private void updateServices() {
@@ -907,7 +933,7 @@ public class MainController {
             services.setServiceList(sc.next());
             System.out.println("Enter cost");
             services.setCost(sc.nextInt());
-            servicesService.updateServices(services);
+            servicesService.updateService(services);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -917,7 +943,7 @@ public class MainController {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter id services");
         int idSer = sc.nextInt();
-        servicesService.deleteServices(idSer);
+        servicesService.deleteService(idSer);
     }
 
 
@@ -991,6 +1017,148 @@ public class MainController {
         orderService.deleteOrder(idOrder);
     }
 
+
+    private void methodCertificate() {
+        Scanner sc = new Scanner(System.in);
+        showMenuCertificate();
+        int choice2 = 0;
+        try {
+            choice2 = sc.nextInt();
+
+        } catch (Exception e) {
+            System.out.println("Error");
+            System.out.println("Try again");
+            makeChoice();
+        }
+
+        switch (choice2) {
+            case 1: {
+                addCertificate();
+                break;
+            }
+            case 2: {
+                System.out.println(certificateService.getAllCertificate());
+                break;
+            }
+            case 3: {
+                deleteCertificate();
+                break;
+            }
+            case 0: {
+                System.out.println("Goodbye!!!");
+                System.exit(1);
+            }
+            default: {
+                System.out.println("Wrong choice");
+                makeChoice();
+            }
+        }
+
+    }
+
+    private void showMenuCertificate(){
+        System.out.println("Make your choice: ");
+        System.out.println("1. Add certificate");
+        System.out.println("2. Get all certificates");
+        System.out.println("3. Delete certificates");
+    }
+
+    private void addCertificate() {
+        Certificate certificate = new Certificate();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter certificate number");
+
+        try{
+            certificate.setNumberCertificate(sc.nextInt());
+        }catch (InputMismatchException exception){
+            System.out.println("Wrong certificate");
+            System.out.println("try again");
+            addCertificate();
+        }catch (Exception e){
+            System.out.println("Wrong certificate");
+            System.out.println("try again");
+            addCertificate();
+        }
+
+
+
+
+        certificateService.addCertificate(certificate);
+    }
+
+    private void deleteCertificate() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter id certificate");
+        int idCertificate = sc.nextInt();
+        certificateService.deleteCertificate(idCertificate);
+    }
+
+
+
+    private void methodService() {
+        Scanner sc = new Scanner(System.in);
+        showMenuService();
+        int choice2 = 0;
+        try {
+            choice2 = sc.nextInt();
+
+        } catch (Exception e) {
+            System.out.println("Error");
+            System.out.println("Try again");
+            makeChoice();
+        }
+
+        switch (choice2) {
+            case 1: {
+                addService();
+                break;
+            }
+            case 2: {
+                System.out.println(serviceService.getAllService());
+                break;
+            }
+            case 3: {
+                deleteService();
+                break;
+            }
+            case 0: {
+                System.out.println("Goodbye!!!");
+                System.exit(1);
+            }
+            default: {
+                System.out.println("Wrong choice");
+                makeChoice();
+            }
+        }
+
+    }
+
+    private void showMenuService(){
+        System.out.println("Make your choice: ");
+        System.out.println("1. Add service");
+        System.out.println("2. Get all service");
+        System.out.println("3. Delete service");
+    }
+
+    private void addService() {
+        Service service = new Service();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter service");
+        service.setService(sc.next());
+
+
+        serviceService.addService(service);
+    }
+
+    private void deleteService() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter id service");
+        int idService = sc.nextInt();
+        serviceService.deleteService(idService);
+    }
+
+
+
     private void showHelloMessage() {
         System.out.println("*******************");
         System.out.println("BarberShop DataBase");
@@ -1000,8 +1168,10 @@ public class MainController {
 
     private static void initDatabase(){
         CreateTableDAOH2Impl createTableDAOH2 = new CreateTableDAOH2Impl();
-        createTableDAOH2.createTableMasterHand();
+        createTableDAOH2.createTableCertificate();
+        createTableDAOH2.createTableService();
         createTableDAOH2.createTableCustomer();
+        createTableDAOH2.createTableMasterHand();
         createTableDAOH2.createTableAdministrator();
         createTableDAOH2.createTableCleaningWoman();
         createTableDAOH2.createTableHairdresser();

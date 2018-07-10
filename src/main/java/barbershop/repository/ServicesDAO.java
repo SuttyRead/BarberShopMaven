@@ -11,10 +11,10 @@ public interface ServicesDAO {
 
     Services findServicesById(int id);
 
-    void addServices(Services services);
+    void addService(Services services);
 
-    void deleteServices(int id);
+    void deleteService(int id);
 
-    void updateServices(Services services);
+    void updateService(Services services);
 
 }

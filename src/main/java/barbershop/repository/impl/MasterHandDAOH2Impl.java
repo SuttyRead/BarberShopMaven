@@ -1,5 +1,6 @@
 package barbershop.repository.impl;
 
+import barbershop.domain.Hairdresser;
 import barbershop.domain.MasterHand;
 import barbershop.exception.MasterHandNotFoundException;
 import barbershop.repository.MasterHandDAO;
@@ -29,8 +30,8 @@ public class MasterHandDAOH2Impl implements MasterHandDAO {
         return instance;
     }
 
-    private static final String INSERT_MASTER_HAND = String.format("INSERT INTO master_hands(%s, %s, %s, %s, %s, %s)" +
-            " VALUES (?, ?, ?, ?, ?, ?);", MasterHand.FIRST_NAME, MasterHand.LAST_NAME, MasterHand.MIDDLE_NAME, MasterHand.PHONE_NUMBER, MasterHand.HIRING, MasterHand.EXPERIENCE);
+    private static final String INSERT_MASTER_HAND = String.format("INSERT INTO master_hands(%s, %s, %s, %s, %s, %s, %s)" +
+            " VALUES (?, ?, ?, ?, ?, ?, ?);", MasterHand.FIRST_NAME, MasterHand.LAST_NAME, MasterHand.MIDDLE_NAME, MasterHand.PHONE_NUMBER, MasterHand.HIRING, MasterHand.EXPERIENCE, MasterHand.NUMBER_CERTIFICATE);
 
     private static final String GET_ALL_MASTER_HANDS = "SELECT * FROM master_hands";
 
@@ -40,8 +41,8 @@ public class MasterHandDAOH2Impl implements MasterHandDAO {
 
     private static final String GET_MASTER_HAND_BY_NAME = "SELECT * FROM master_hands WHERE first_name = ? and last_name = ? and middle_name = ?";
 
-    private static final String UPDATE_MASTER_HAND = String.format("UPDATE master_hands SET %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ? " +
-            "WHERE id = ?", MasterHand.FIRST_NAME, MasterHand.LAST_NAME, MasterHand.MIDDLE_NAME, MasterHand.PHONE_NUMBER, MasterHand.HIRING, MasterHand.EXPERIENCE);
+    private static final String UPDATE_MASTER_HAND = String.format("UPDATE master_hands SET %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ? " +
+            "WHERE id = ?", MasterHand.FIRST_NAME, MasterHand.LAST_NAME, MasterHand.MIDDLE_NAME, MasterHand.PHONE_NUMBER, MasterHand.HIRING, MasterHand.EXPERIENCE, MasterHand.NUMBER_CERTIFICATE);
 
 
     @Override
@@ -56,6 +57,8 @@ public class MasterHandDAOH2Impl implements MasterHandDAO {
             pst.setString(4, masterHand.getPhoneNumber());
             pst.setString(5, masterHand.getHiring());
             pst.setDouble(6, masterHand.getExperience());
+            pst.setInt(7, masterHand.getNumberCertificate());
+
 
             pst.execute();
 
@@ -85,6 +88,8 @@ public class MasterHandDAOH2Impl implements MasterHandDAO {
                 masterHand.setPhoneNumber(rs.getString(MasterHand.PHONE_NUMBER));
                 masterHand.setHiring(rs.getString(MasterHand.HIRING));
                 masterHand.setExperience(rs.getDouble(MasterHand.EXPERIENCE));
+                masterHand.setNumberCertificate(rs.getInt(Hairdresser.NUMBER_CERTIFICATE));
+
                 masterHands.add(masterHand);
             }
         } catch (SQLException e) {
@@ -115,6 +120,8 @@ public class MasterHandDAOH2Impl implements MasterHandDAO {
                 masterHand.setPhoneNumber(rs.getString(MasterHand.PHONE_NUMBER));
                 masterHand.setHiring(rs.getString(MasterHand.HIRING));
                 masterHand.setExperience(rs.getDouble(MasterHand.EXPERIENCE));
+                masterHand.setNumberCertificate(rs.getInt(Hairdresser.NUMBER_CERTIFICATE));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -144,6 +151,8 @@ public class MasterHandDAOH2Impl implements MasterHandDAO {
                 masterHand.setPhoneNumber(rs.getString(MasterHand.PHONE_NUMBER));
                 masterHand.setHiring(rs.getString(MasterHand.HIRING));
                 masterHand.setExperience(rs.getDouble(MasterHand.EXPERIENCE));
+                masterHand.setNumberCertificate(rs.getInt(Hairdresser.NUMBER_CERTIFICATE));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -166,7 +175,8 @@ public class MasterHandDAOH2Impl implements MasterHandDAO {
             pst.setString(4, masterHand.getPhoneNumber());
             pst.setString(5, masterHand.getHiring());
             pst.setDouble(6, masterHand.getExperience());
-            pst.setInt(7, masterHand.getId());
+            pst.setInt(7, masterHand.getNumberCertificate());
+            pst.setInt(8, masterHand.getId());
 
             pst.execute();
 

@@ -35,7 +35,7 @@ public class ThreadDumpCleaner {
 
         "\\$\\$YJP\\$\\$",
 
-        "\"(Attach|Service|VM|GC|DestroyJavaVM|Signal|AWT|AppKit|C2 |Low Mem|" +
+        "\"(Attach|Services|VM|GC|DestroyJavaVM|Signal|AWT|AppKit|C2 |Low Mem|" +
                 "process reaper|YJPAgent-).*?\"(?s).*?\n\n",
 
         "   Locked ownable synchronizers:(?s).*?\n\n",

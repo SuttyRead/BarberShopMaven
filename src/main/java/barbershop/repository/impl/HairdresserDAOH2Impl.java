@@ -27,8 +27,8 @@ public class HairdresserDAOH2Impl implements HairdresserDAO {
         return instance;
     }
 
-    private static final String INSERT_HAIRDRESSER = String.format("INSERT INTO hairdressers(%s, %s, %s, %s, %s, %s)" +
-            " VALUES (?, ?, ?, ?, ?, ?);", Hairdresser.FIRST_NAME, Hairdresser.LAST_NAME, Hairdresser.MIDDLE_NAME, Hairdresser.PHONE_NUMBER, Hairdresser.HIRING, Hairdresser.EXPERIENCE);
+    private static final String INSERT_HAIRDRESSER = String.format("INSERT INTO hairdressers(%s, %s, %s, %s, %s, %s, %s)" +
+            " VALUES (?, ?, ?, ?, ?, ?, ?);", Hairdresser.FIRST_NAME, Hairdresser.LAST_NAME, Hairdresser.MIDDLE_NAME, Hairdresser.PHONE_NUMBER, Hairdresser.HIRING, Hairdresser.EXPERIENCE, Hairdresser.NUMBER_CERTIFICATE);
 
     private static final String GET_ALL_HAIRDRESSERS = "SELECT * FROM hairdressers";
 
@@ -53,9 +53,10 @@ public class HairdresserDAOH2Impl implements HairdresserDAO {
             pst.setString(1, hairdresser.getFirstName());
             pst.setString(2, hairdresser.getLastName());
             pst.setString(3, hairdresser.getMiddleName());
-            pst.setString(4, hairdresser.getPhoneNumber().toString());
-            pst.setString(5, hairdresser.getHiring().toString());
+            pst.setString(4, hairdresser.getPhoneNumber());
+            pst.setString(5, hairdresser.getHiring());
             pst.setDouble(6, hairdresser.getExperience());
+            pst.setInt(7, hairdresser.getNumberCertificate());
 
             pst.execute();
 
@@ -87,6 +88,8 @@ public class HairdresserDAOH2Impl implements HairdresserDAO {
                 hairdresser.setPhoneNumber(rs.getString(Hairdresser.PHONE_NUMBER));
                 hairdresser.setHiring(rs.getString(Hairdresser.HIRING));
                 hairdresser.setExperience(rs.getDouble(Hairdresser.EXPERIENCE));
+                hairdresser.setNumberCertificate(rs.getInt(Hairdresser.NUMBER_CERTIFICATE));
+
                 hairdressers.add(hairdresser);
             }
         } catch (SQLException e) {
@@ -117,6 +120,7 @@ public class HairdresserDAOH2Impl implements HairdresserDAO {
                 hairdresser.setPhoneNumber(rs.getString(Hairdresser.PHONE_NUMBER));
                 hairdresser.setHiring(rs.getString(Hairdresser.HIRING));
                 hairdresser.setExperience(rs.getDouble(Hairdresser.EXPERIENCE));
+                hairdresser.setNumberCertificate(rs.getInt(Hairdresser.NUMBER_CERTIFICATE));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -146,6 +150,7 @@ public class HairdresserDAOH2Impl implements HairdresserDAO {
                 hairdresser.setPhoneNumber(rs.getString(Hairdresser.PHONE_NUMBER));
                 hairdresser.setHiring(rs.getString(Hairdresser.HIRING));
                 hairdresser.setExperience(rs.getDouble(Hairdresser.EXPERIENCE));
+                hairdresser.setNumberCertificate(rs.getInt(Hairdresser.NUMBER_CERTIFICATE));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -168,7 +173,9 @@ public class HairdresserDAOH2Impl implements HairdresserDAO {
             pst.setString(4, hairdresser.getPhoneNumber());
             pst.setString(5, hairdresser.getHiring());
             pst.setDouble(6, hairdresser.getExperience());
-            pst.setInt(7, hairdresser.getId());
+            pst.setInt(7, hairdresser.getNumberCertificate());
+
+            pst.setInt(8, hairdresser.getId());
 
             pst.execute();
 
