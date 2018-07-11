@@ -33,7 +33,8 @@ public class MasterHandDAOH2Impl implements MasterHandDAO {
     private static final String INSERT_MASTER_HAND = String.format("INSERT INTO master_hands(%s, %s, %s, %s, %s, %s, %s)" +
             " VALUES (?, ?, ?, ?, ?, ?, ?);", MasterHand.FIRST_NAME, MasterHand.LAST_NAME, MasterHand.MIDDLE_NAME, MasterHand.PHONE_NUMBER, MasterHand.HIRING, MasterHand.EXPERIENCE, MasterHand.NUMBER_CERTIFICATE);
 
-    private static final String GET_ALL_MASTER_HANDS = "SELECT * FROM master_hands";
+    private static final String GET_ALL_MASTER_HANDS = "SELECT * FROM master_hands\n" +
+            "INNER JOIN certificates ON number_certificate_id = certificates.id;";
 
     private static final String DELETE_MASTER_HAND_BY_ID = String.format("DELETE FROM master_hands WHERE %s = ?;", MasterHand.ID);
 
@@ -58,7 +59,6 @@ public class MasterHandDAOH2Impl implements MasterHandDAO {
             pst.setString(5, masterHand.getHiring());
             pst.setDouble(6, masterHand.getExperience());
             pst.setInt(7, masterHand.getNumberCertificate());
-
 
             pst.execute();
 
@@ -88,7 +88,7 @@ public class MasterHandDAOH2Impl implements MasterHandDAO {
                 masterHand.setPhoneNumber(rs.getString(MasterHand.PHONE_NUMBER));
                 masterHand.setHiring(rs.getString(MasterHand.HIRING));
                 masterHand.setExperience(rs.getDouble(MasterHand.EXPERIENCE));
-                masterHand.setNumberCertificate(rs.getInt(Hairdresser.NUMBER_CERTIFICATE));
+                masterHand.setNumberCertificate(rs.getInt("certificates.number_certificate"));
 
                 masterHands.add(masterHand);
             }

@@ -30,7 +30,8 @@ public class HairdresserDAOH2Impl implements HairdresserDAO {
     private static final String INSERT_HAIRDRESSER = String.format("INSERT INTO hairdressers(%s, %s, %s, %s, %s, %s, %s)" +
             " VALUES (?, ?, ?, ?, ?, ?, ?);", Hairdresser.FIRST_NAME, Hairdresser.LAST_NAME, Hairdresser.MIDDLE_NAME, Hairdresser.PHONE_NUMBER, Hairdresser.HIRING, Hairdresser.EXPERIENCE, Hairdresser.NUMBER_CERTIFICATE);
 
-    private static final String GET_ALL_HAIRDRESSERS = "SELECT * FROM hairdressers";
+    private static final String GET_ALL_HAIRDRESSERS = "SELECT * FROM hairdressers\n" +
+            "INNER JOIN certificates ON number_certificate_id = certificates.id;";
 
     private static final String DELETE_HAIRDRESSER_BY_ID = String.format("DELETE FROM hairdressers WHERE %s = ?;", Hairdresser.ID);
 
@@ -88,7 +89,8 @@ public class HairdresserDAOH2Impl implements HairdresserDAO {
                 hairdresser.setPhoneNumber(rs.getString(Hairdresser.PHONE_NUMBER));
                 hairdresser.setHiring(rs.getString(Hairdresser.HIRING));
                 hairdresser.setExperience(rs.getDouble(Hairdresser.EXPERIENCE));
-                hairdresser.setNumberCertificate(rs.getInt(Hairdresser.NUMBER_CERTIFICATE));
+                hairdresser.setNumberCertificate(rs.getInt("certificates.number_certificate"));
+//                System.out.println(rs.getInt("certificates.number_certificate"));
 
                 hairdressers.add(hairdresser);
             }

@@ -913,7 +913,7 @@ public class MainController {
         Services services = new Services();
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter service");
-        services.setServiceList(sc.next());
+        services.setService(sc.next());
         System.out.println("Enter cost");
         services.setCost(sc.nextInt());
         servicesService.addService(services);
@@ -930,7 +930,7 @@ public class MainController {
         try {
             Services services = servicesService.getAllServices().get(n);
             System.out.println("Enter service");
-            services.setServiceList(sc.next());
+            services.setService(sc.next());
             System.out.println("Enter cost");
             services.setCost(sc.nextInt());
             servicesService.updateService(services);

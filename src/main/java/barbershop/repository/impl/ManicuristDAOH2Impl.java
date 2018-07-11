@@ -33,7 +33,8 @@ public class ManicuristDAOH2Impl implements ManicuristDAO {
     private static final String INSERT_MANICURIST = String.format("INSERT INTO manicurists(%s, %s, %s, %s, %s, %s, %s)" +
             " VALUES (?, ?, ?, ?, ?, ?, ?);", Manicurist.FIRST_NAME, Manicurist.LAST_NAME, Manicurist.MIDDLE_NAME, Manicurist.PHONE_NUMBER, Manicurist.HIRING, Manicurist.EXPERIENCE, Manicurist.NUMBER_CERTIFICATE);
 
-    private static final String GET_ALL_MANICURISTS = "SELECT * FROM manicurists";
+    private static final String GET_ALL_MANICURISTS = "SELECT * FROM manicurists\n" +
+            "INNER JOIN certificates ON number_certificate_id = certificates.id;";
 
     private static final String DELETE_MANICURIST_BY_ID = String.format("DELETE FROM manicurists WHERE %s = ?;", Manicurist.ID);
 
@@ -91,7 +92,7 @@ public class ManicuristDAOH2Impl implements ManicuristDAO {
                 manicurist.setPhoneNumber(rs.getString(Manicurist.PHONE_NUMBER));
                 manicurist.setHiring(rs.getString(Manicurist.HIRING));
                 manicurist.setExperience(rs.getDouble(Manicurist.EXPERIENCE));
-                manicurist.setNumberCertificate(rs.getInt(Manicurist.NUMBER_CERTIFICATE));
+                manicurist.setNumberCertificate(rs.getInt("certificates.number_certificate"));
                 manicurists.add(manicurist);
             }
         } catch (SQLException e) {

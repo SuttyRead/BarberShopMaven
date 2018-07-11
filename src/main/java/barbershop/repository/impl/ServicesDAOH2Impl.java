@@ -33,23 +33,19 @@ public class ServicesDAOH2Impl implements ServicesDAO {
 
     private static final String DELETE_SERVICE_BY_ID = String.format("DELETE FROM services WHERE %s = ?;", Services.ID);
 
-
     private static final String INSERT_SERVICE = String.format("INSERT INTO services(%s, %s)" +
             " VALUES (?, ?);", Services.SERVICE, Services.COST);
 
-    private static final String GET_ALL_SERVICES = "SELECT * FROM services";
-
+    private static final String GET_ALL_SERVICES = "SELECT * FROM services\n" +
+            "INNER JOIN service ON service_id = service.id;";
 
     @Override
     public void addService(Services services) {
         try {
             connection = getInstance().getConnection();
             pst = connection.prepareStatement(INSERT_SERVICE);
-
-            pst.setString(1, services.getServiceList().toString());
-            pst.setInt(2, (int) services.getCost());
-//            pst.setInt(3, services.getDuration());
-
+            pst.setInt(1, Integer.valueOf(services.getService()));
+            pst.setInt(2, services.getCost());
 
             pst.execute();
 
@@ -73,7 +69,7 @@ public class ServicesDAOH2Impl implements ServicesDAO {
             while (rs.next()) {
                 Services services = new Services();
                 services.setId(rs.getInt(Services.ID));
-                services.setServiceList(rs.getString(Services.SERVICE));
+                services.setService(rs.getString("service.service"));
                 services.setCost(rs.getInt(Services.COST));
                 servicesList.add(services);
             }
@@ -99,7 +95,7 @@ public class ServicesDAOH2Impl implements ServicesDAO {
 
             while (rs.next()) {
                 services.setId(rs.getInt(Services.ID));
-                services.setServiceList(rs.getString(Services.SERVICE));
+                services.setService(rs.getString(Services.SERVICE));
                 services.setCost(rs.getInt(Services.COST));
                 services.setDuration(rs.getInt(Services.DURATION));
             }
@@ -136,7 +132,7 @@ public class ServicesDAOH2Impl implements ServicesDAO {
         try {
             connection = getInstance().getConnection();
             pst = connection.prepareStatement(UPDATE_SERVICE);
-            pst.setString(1, service.getServiceList().toString());
+            pst.setString(1, service.getService().toString());
             pst.setDouble(2, service.getCost());
             pst.setInt(3, service.getId());
 

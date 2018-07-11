@@ -5,10 +5,12 @@ public class MasterHand  extends Person{
     public static final String HIRING = "hiring";
     public static final String EXPERIENCE = "experience";
     public static final String NUMBER_CERTIFICATE = "number_certificate_id";
+    public static final String CERTIFICATE = "certificates.number_certificate";
 
     private String hiring;
     private double experience;
     private int numberCertificate;
+    private int certificate;
 
     public MasterHand() {
     }
@@ -42,6 +44,8 @@ public class MasterHand  extends Person{
     public void setNumberCertificate(int numberCertificate) {
         this.numberCertificate = numberCertificate;
     }
+
+
 
     @Override
     public String toString() {

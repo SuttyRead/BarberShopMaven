@@ -3,22 +3,22 @@ package barbershop.domain;
 public class Services {
 
     public static final String ID = "id";
-    public static final String SERVICE = "service";
+    public static final String SERVICE = "service_id";
     public static final String COST = "cost";
     public static final String DURATION = "duration";
 
 
     private int id;
-    private ServiceList serviceList;
+    private String service;
     private int cost;
     private int duration;
 
     public Services() {
     }
 
-    public Services(int id, ServiceList serviceList, int cost, int duration) {
+    public Services(int id, String serviceList, int cost, int duration) {
         this.id = id;
-        this.serviceList = serviceList;
+        this.service = serviceList;
         this.cost = cost;
         this.duration = duration;
     }
@@ -31,15 +31,15 @@ public class Services {
         this.id = id;
     }
 
-    public ServiceList getServiceList() {
-        return serviceList;
+    public String getService() {
+        return service;
     }
 
-    public void setServiceList(String serviceList) {
-        this.serviceList = ServiceList.valueOf(serviceList);
+    public void setService(String service) {
+        this.service = service;
     }
 
-    public double getCost() {
+    public int getCost() {
         return cost;
     }
 
@@ -59,7 +59,7 @@ public class Services {
     public String toString() {
         return "Services{" +
                 "id=" + id +
-                ", serviceList=" + serviceList +
+                ", service=" + service +
                 ", cost=" + cost +
                 ", duration=" + duration +
                 '}';
